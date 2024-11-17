@@ -1,56 +1,31 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { CategoryComponent } from './pages/category/category.component';
-import { MycartComponent } from './pages/mycart/mycart.component';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { RecoveryComponent } from './pages/recovery/recovery.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from './website/pages/not-found/not-found.component';
+import { CustomPreloadService } from './services/custom-preload.service';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
+    loadChildren: () => import('./website/website.module').then((m) => m.WebsiteModule),
+    data: {
+      preload: true,
+    }
   },
   {
-    path: 'home',
-    component: HomeComponent,
-  },
-  {
-    path: 'category/:id',
-    component: CategoryComponent,
-  },
-  {
-    path: 'product/:id',
-    component: ProductDetailComponent
-  },
-  {
-    path: 'my-cart',
-    component: MycartComponent,
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-  },
-  {
-    path: 'recovery',
-    component: RecoveryComponent
+    path: 'cms',
+    loadChildren: () => import('./cms/cms.module').then((m) => m.CmsModule),
   },
   {
     path: '**',
-    component: NotFoundComponent
-  }
+    component: NotFoundComponent,
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    // preloadingStrategy: PreloadAllModules (esto carga todos los modulos no es conveniente cuando hay muchos modulos)
+    preloadingStrategy: CustomPreloadService
+  })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

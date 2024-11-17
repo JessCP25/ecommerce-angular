@@ -5,21 +5,21 @@ import {
   Product,
   CreateProductDTO,
   UpdateProductDTO,
-} from '../../models/product.model';
+} from '../../../models/product.model';
 
-import { StoreService } from '../../services/store.service';
-import { ProductsService } from '../../services/products.service';
+import { StoreService } from '../../../services/store.service';
+import { ProductsService } from '../../../services/products.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
-export class ProductsComponent{
+export class ProductsComponent {
   @Input() products: Product[] = [];
   @Input()
-  set productId (id: string){
-    if(id){
+  set productId(id: string) {
+    if (id) {
       this.onShowDetail(id);
     }
   }
@@ -49,7 +49,7 @@ export class ProductsComponent{
   onShowDetail(id: string) {
     this.statusDetail = 'loading';
     // this.toggleProductDetail();
-    if(!this.showProductDetail){
+    if (!this.showProductDetail) {
       this.showProductDetail = true;
     }
     this.productsService.getOne(id).subscribe(
@@ -66,7 +66,7 @@ export class ProductsComponent{
 
   createNewProduct() {
     const product: CreateProductDTO = {
-      title: 'Nuevo prodcuto',
+      title: 'Nuevo producto',
       description: 'bla bla bla',
       images: [`https://placeimg.com/640/480/any?random=${Math.random()}`],
       price: 1000,
