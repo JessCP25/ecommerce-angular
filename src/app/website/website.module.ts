@@ -14,6 +14,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { SwiperModule } from 'swiper/angular';
 import { SharedModule } from '../shared/shared.module';
 import { CategoryComponent } from './pages/category/category.component';
+import { QuicklinkModule } from 'ngx-quicklink';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { CategoryComponent } from './pages/category/category.component';
     CommonModule,
     WebsiteRoutingModule,
     SwiperModule,
-    SharedModule
+    SharedModule,
+    QuicklinkModule
   ]
 })
 export class WebsiteModule { }
